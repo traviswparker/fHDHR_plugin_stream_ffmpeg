@@ -5,7 +5,7 @@ import subprocess
 from fHDHR.exceptions import TunerError
 
 
-def setup(plugin):
+def setup(plugin, versions):
 
     # Check config for ffmpeg path
     ffmpeg_path = None
@@ -18,9 +18,9 @@ def setup(plugin):
 
     if not ffmpeg_path:
         plugin.logger.info("Attempting to find ffmpeg in PATH.")
-        if plugin.config.internal["versions"]["Operating System"]["version"] in ["Linux", "Darwin"]:
+        if versions.dict["Operating System"]["version"] in ["Linux", "Darwin"]:
             find_ffmpeg_command = ["which", "ffmpeg"]
-        elif plugin.config.internal["versions"]["Operating System"]["version"] in ["Windows"]:
+        elif versions.dict["Operating System"]["version"] in ["Windows"]:
             find_ffmpeg_command = ["where", "ffmpeg"]
 
         ffmpeg_proc = subprocess.Popen(find_ffmpeg_command, stdout=subprocess.PIPE)
@@ -54,7 +54,7 @@ def setup(plugin):
         ffmpeg_version = "Missing"
         plugin.logger.warning("Failed to find ffmpeg.")
 
-    plugin.config.register_version("ffmpeg", ffmpeg_version, "env")
+    versions.register_version("ffmpeg", ffmpeg_version, "env")
 
 
 class Plugin_OBJ():
@@ -65,7 +65,7 @@ class Plugin_OBJ():
         self.stream_args = stream_args
         self.tuner = tuner
 
-        if self.plugin_utils.config.internal["versions"]["ffmpeg"]["version"] == "Missing":
+        if self.plugin_utils.versions.dict["ffmpeg"]["version"] == "Missing":
             raise TunerError("806 - Tune Failed: FFMPEG Missing")
 
         self.bytes_per_read = int(plugin_utils.config.dict["streaming"]["bytes_per_read"])
