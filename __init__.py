@@ -67,7 +67,6 @@ class Plugin_OBJ():
         if self.plugin_utils.versions.dict["ffmpeg"]["version"] == "Missing":
             raise TunerError("806 - Tune Failed: FFMPEG Missing")
 
-        self.bytes_per_read = int(plugin_utils.config.dict["streaming"]["bytes_per_read"])
         self.ffmpeg_command = self.ffmpeg_command_assemble(stream_args)
 
     def get(self):
@@ -78,7 +77,7 @@ class Plugin_OBJ():
             try:
                 while self.tuner.tuner_lock.locked():
 
-                    chunk = ffmpeg_proc.stdout.read(self.bytes_per_read)
+                    chunk = ffmpeg_proc.stdout.read(self.stream_args["bytes_per_read"])
                     if not chunk:
                         break
                     yield chunk
