@@ -134,6 +134,11 @@ class Plugin_OBJ():
         ffmpeg_command = []
         log_level = self.plugin_utils.config.dict["logging"]["level"].lower()
 
+        if log_level in ["noob"]:
+            log_level = "info"
+        elif log_level in ["ssdp"]:
+            log_level = "debug"
+
         loglevel_dict = {
                         "debug": "debug",
                         "info": "info",
