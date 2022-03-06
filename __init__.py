@@ -146,7 +146,7 @@ class Plugin_OBJ():
                         "warning": "warning",
                         "critical": "fatal",
                         }
-        if log_level not in ["info", "debug"]:
+        if log_level not in ["debug"]:
             ffmpeg_command.extend(["-nostats", "-hide_banner"])
         ffmpeg_command.extend(["-loglevel", loglevel_dict[log_level]])
         return ffmpeg_command
