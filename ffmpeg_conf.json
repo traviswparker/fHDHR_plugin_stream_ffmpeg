@@ -4,6 +4,11 @@
                     "value": "none",
                     "config_file": true,
                     "config_web": true
+                },
+          "bufsize":{
+                    "value": 0,
+                    "config_file": true,
+                    "config_web": true
                 }
   }
 }
