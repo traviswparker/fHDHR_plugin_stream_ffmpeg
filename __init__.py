@@ -65,7 +65,7 @@ class Plugin_OBJ():
         self.tuner = tuner
 
         self.ffmpeg_path = self.plugin_utils.config.dict["ffmpeg"]["path"]
-        self.buffsize = self.plugin_utils.config.dict["ffmpeg"]["path"]
+        self.buffsize = self.plugin_utils.config.dict["ffmpeg"]["buffsize"]
 
         if self.plugin_utils.versions.dict["ffmpeg"]["version"] == "Missing":
             raise TunerError("806 - Tune Failed: FFMPEG Missing")
