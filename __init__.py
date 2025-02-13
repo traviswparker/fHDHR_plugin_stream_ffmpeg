@@ -7,7 +7,7 @@ from fHDHR.exceptions import TunerError
 def setup(plugin, versions):
 
     # Check config for ffmpeg path
-    ffmpeg_path = None
+    ffmpeg_path = ffmpeg_version = None
     if plugin.config.dict["ffmpeg"]["path"]:
         # verify path is valid
         if os.path.isfile(plugin.config.dict["ffmpeg"]["path"]):
@@ -53,6 +53,7 @@ def setup(plugin, versions):
         ffmpeg_version = "Missing"
         plugin.logger.warning("Failed to find ffmpeg.")
 
+    plugin.logger.info("ffmpeg version: "+ffmpeg_version)
     versions.register_version("ffmpeg", ffmpeg_version, "env")
 
 
